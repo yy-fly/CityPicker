@@ -41,6 +41,7 @@ import com.yyfly.android.citypicker.ui.widget.CityListAdapter;
 import com.yyfly.android.citypicker.ui.widget.ResultListAdapter;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 城市选择界面
@@ -53,7 +54,6 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
     private SideLetterBar mLetterBar;
     private EditText searchBox;
     private ImageView clearBtn;
-    private ImageView backBtn;
     private ViewGroup emptyView;
 
     private CityListAdapter mCityAdapter;
@@ -65,6 +65,8 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cp_activity_city_list);
+        Objects.requireNonNull(getSupportActionBar( )).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("选择城市");
         initData();
         initView();
     }
@@ -160,10 +162,8 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
         });
 
         clearBtn = (ImageView) findViewById(R.id.iv_search_clear);
-        backBtn = (ImageView) findViewById(R.id.back);
 
         clearBtn.setOnClickListener(this);
-        backBtn.setOnClickListener(this);
     }
 
     private void back(String city) {
@@ -181,8 +181,6 @@ public class CityPickerActivity extends AppCompatActivity implements View.OnClic
             clearBtn.setVisibility(View.GONE);
             emptyView.setVisibility(View.GONE);
             mResultListView.setVisibility(View.GONE);
-        } else if (i == R.id.back) {
-            finish();
         }
     }
 
